@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const downloadGeoLiteDatabase = async () => {
     const databaseUrl = "https://cdn.jsdelivr.net/npm/geolite2-city/GeoLite2-City.mmdb.gz";
-    const databasePath = path.join('src/data', 'GeoLite2-City.mmdb');
+    const databasePath = path.join('src/database', 'GeoLite2-City.mmdb');
 
     if (fs.existsSync(databasePath)) {
         console.log('Database already downloaded, skipping download');

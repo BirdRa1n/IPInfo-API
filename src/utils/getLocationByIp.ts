@@ -1,7 +1,7 @@
 import * as maxmind from 'maxmind';
 import path from 'path';
 
-const databasePath = path.join('src/data/GeoLite2-City.mmdb');
+const databasePath = path.join('src/database/GeoLite2-City.mmdb');
 
 async function fetchLocationByIp(ipAddress: string) {
     try {
