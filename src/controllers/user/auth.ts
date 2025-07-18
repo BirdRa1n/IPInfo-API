@@ -2,8 +2,10 @@ import { Request, Response } from 'express';
 import User from '../../database/models/user';
 import jwt from 'jsonwebtoken';
 import * as dotenv from 'dotenv';
+import bcrypt from "bcrypt";
+import Session from '../../database/models/sessions';
+
 dotenv.config();
-const bcrypt = require('bcrypt');
 
 interface Props {
     req: Request;
@@ -21,22 +23,28 @@ const Auth = async ({ req, res }: Props) => {
             }
         });
 
-        return res.status(200).send(result);
-
         if (!result) return res.status(404).send({ message: 'User not found' });
 
-        const isPasswordValid = await bcrypt.comparePassword(password);
+        const isPasswordValid = await bcrypt.compare(password, result.auth_hash);
+
         if (!isPasswordValid) return res.status(401).send({ message: 'Invalid password' });
 
         if (!process.env.JWT_SECRET) {
+            console.error('JWT_SECRET is not defined');
             throw new Error('JWT_SECRET não está definido');
         }
 
-        //const token = jwt.sign({ id: result.id }, process.env.JWT_SECRET, { expiresIn: '1d' }); res.cookie('token', token, { httpOnly: true });
+        const token = jwt.sign({ user: result.id }, process.env.JWT_SECRET, { expiresIn: '1d' }); res.cookie('token', token, { httpOnly: true });
+
+        Session.create({
+            user_id: result.id,
+            token: token
+        });
 
         res.status(200).send({ message: 'Authentication successful' });
     } catch (error) {
-        res.status(500).send('Error retrieving location information');
+        console.error(error);
+        res.status(500).send({ message: 'Internal server error' });
     }
 }
 
