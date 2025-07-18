@@ -6,6 +6,7 @@ class User extends Model {
     public name!: string;
     public email!: string;
     public auth_hash!: string;
+    public plan: any;
 }
 
 User.init({

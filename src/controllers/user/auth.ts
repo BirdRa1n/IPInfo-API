@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
 import User from '../../database/models/user';
 import jwt from 'jsonwebtoken';
-import * as dotenv from 'dotenv';
 import bcrypt from "bcrypt";
 import Session from '../../database/models/sessions';
-
-dotenv.config();
 
 interface Props {
     req: Request;

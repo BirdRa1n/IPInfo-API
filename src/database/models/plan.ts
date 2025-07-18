@@ -1,7 +1,17 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../database";
 
-const Plan = sequelize.define('plan', {
+class Plan extends Model {
+    public id!: number;
+    public name!: string;
+    public price!: number;
+    public maxRequests!: number;
+    public maxRequestsPerDay!: number;
+    public maxRequestsPerMonth!: number;
+    public maxRequestsPerYear!: number;
+}
+
+Plan.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -30,7 +40,10 @@ const Plan = sequelize.define('plan', {
     maxRequestsPerYear: {
         type: DataTypes.INTEGER,
         allowNull: false
-    }
+    },
+}, {
+    sequelize,
+    modelName: 'plan'
 });
 
 export default Plan;

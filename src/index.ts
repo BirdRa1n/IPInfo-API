@@ -25,6 +25,7 @@ app.use(router);
 User.hasMany(ApiKey);
 ApiKey.belongsTo(User);
 ApiKey.belongsTo(Plan);
+User.belongsTo(Plan);
 User.hasMany(Session);
 Session.belongsTo(User);
 
