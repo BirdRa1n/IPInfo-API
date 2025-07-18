@@ -19,6 +19,7 @@
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "inquirer": "^12.7.0",
+    "jsonwebtoken": "^9.0.2",
     "maxmind": "^4.3.28",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7"
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/inquirer": "^9.0.8",
+    "@types/jsonwebtoken": "^9.0.10",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
