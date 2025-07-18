@@ -1,5 +1,5 @@
-// src/index.ts
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import router from './routes';
 import downloadGeoLiteDatabase from './utils/downloadDatabase';
@@ -10,18 +10,23 @@ dotenv.config();
 import Plan from './database/models/plan';
 import User from './database/models/user';
 import ApiKey from './database/models/api_key';
+import Session from './database/models/sessions';
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
 // Define associations after all models are imported
 User.hasMany(ApiKey);
 ApiKey.belongsTo(User);
 ApiKey.belongsTo(Plan);
+User.hasMany(Session);
+Session.belongsTo(User);
 
 (async () => {
     try {
