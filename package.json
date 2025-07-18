@@ -1,0 +1,30 @@
+{
+  "name": "ipinfo",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "https://github.com/BirdRa1n/IPInfo.git",
+  "author": "Dário Jr <53487868+BirdRa1n@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.14",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "inquirer": "^12.7.0",
+    "maxmind": "^4.3.28",
+    "nodemon": "^3.1.10",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/inquirer": "^9.0.8",
+    "typescript": "^5.8.3"
+  }
+}
