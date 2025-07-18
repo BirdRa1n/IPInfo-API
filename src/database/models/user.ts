@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database";
-import ApiKey from "./api_key";
 
 const User = sequelize.define('user', {
     id: {
@@ -21,7 +20,5 @@ const User = sequelize.define('user', {
         allowNull: false
     }
 });
-
-User.hasMany(ApiKey);
 
 export default User;

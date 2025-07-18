@@ -1,7 +1,5 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../database";
-import User from "./user";
-import Plan from "./plan";
 
 const ApiKey = sequelize.define('api_key', {
     key: {
@@ -16,8 +14,5 @@ const ApiKey = sequelize.define('api_key', {
         defaultValue: 'active'
     }
 });
-
-ApiKey.belongsTo(User);
-ApiKey.belongsTo(Plan);
 
 export default ApiKey;
