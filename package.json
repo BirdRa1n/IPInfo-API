@@ -14,6 +14,7 @@
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.14",
+    "@types/uuid": "^10.0.0",
     "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
@@ -24,7 +25,8 @@
     "jsonwebtoken": "^9.0.2",
     "maxmind": "^4.3.28",
     "sequelize": "^6.37.7",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import User from '../../database/models/user';
 import ApiKey from '../../database/models/api_key';
 import Plan from '../../database/models/plan';
+import Session from '../../database/models/sessions';
 
 
 interface Props {
@@ -23,6 +24,15 @@ const getUser = async ({ req, res }: Props) => {
             console.error('JWT_SECRET is not defined');
             throw new Error('JWT_SECRET não está definido');
         }
+
+        const session = await Session.findOne({
+            where: {
+                token: token
+            }
+        });
+
+        if (!session) return res.status(401).send({ message: 'Unauthorized' });
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const result = Object(decoded);
 

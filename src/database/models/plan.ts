@@ -9,6 +9,7 @@ class Plan extends Model {
     public maxRequestsPerDay!: number;
     public maxRequestsPerMonth!: number;
     public maxRequestsPerYear!: number;
+    public maxApiKeys!: number;
 }
 
 Plan.init({
@@ -23,6 +24,10 @@ Plan.init({
     },
     price: {
         type: DataTypes.DECIMAL,
+        allowNull: false
+    },
+    maxApiKeys: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     maxRequests: {
