@@ -6,7 +6,7 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white)](https://sequelize.org/)
 
-Uma API robusta para obter informações de geolocalização baseadas em endereços IP, com autenticação de usuário, gerenciamento de chaves de API e controle de limites de requisição por plano.
+Uma API utilizando nodejs para obter informações de geolocalização baseadas em endereços IP, com autenticação de usuário, gerenciamento de chaves de API e controle de limites de requisição por plano.
 
 ## 📋 Tabela de Conteúdos
 
