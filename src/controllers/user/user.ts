@@ -49,7 +49,8 @@ const getUser = async ({ req, res }: Props) => {
                     attributes: ['key', 'status']
                 },
                 {
-                    model: Plan
+                    model: Plan,
+                    attributes: ['name', 'price', 'maxRequests', 'maxRequestsPerDay', 'maxRequestsPerMonth', 'maxRequestsPerYear']
                 }
             ]
         });
