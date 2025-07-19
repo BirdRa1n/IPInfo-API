@@ -100,7 +100,7 @@ const ListAPIKeys = async (req: Request, res: Response) => {
             })
         );
 
-        return res.status(200).json({ apiKeys: apiKeysWithLimits });
+        return res.status(200).json(apiKeysWithLimits);
 
     } catch (error: any) {
         console.error('Error listing API Keys:', error);

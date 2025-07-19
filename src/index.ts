@@ -14,7 +14,6 @@ import ApiKey from './database/models/api_key';
 import Session from './database/models/sessions';
 import Admin from './database/models/admin';
 import RequestLog from './database/models/request_log';
-import apiKeysRouter from './routes/apiKeys';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,8 +22,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(router);
-router.use('/api-keys', apiKeysRouter);
+app.use('/api', router);
 
 // Define associations after all models are imported
 User.hasMany(ApiKey);
