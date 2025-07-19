@@ -116,7 +116,7 @@ RequestLog.belongsTo(User, { foreignKey: 'userId' });
         // --- Fim da lógica para garantir o plano "Unlimited" para o Admin ---
 
     } catch (error: any) {
-        console.error('Error during database sync or initial setup:', error.message);
+        console.error('Error during database sync or initial setup:', error);
         if (process.env.NODE_ENV === 'development') {
             console.error('Stack trace:', error.stack);
         }
