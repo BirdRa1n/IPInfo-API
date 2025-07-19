@@ -3,6 +3,7 @@ import Location from '../controllers/location';
 import Auth from '../controllers/user/auth';
 import getUser from '../controllers/user/user';
 import authenticateApiKey from '../middleware/authenticateApiKey';
+import singup from '../controllers/user/singup';
 
 const router = express.Router();
 
@@ -15,6 +16,10 @@ router.get('/location/:ip', authenticateApiKey, (req: Request, res: Response) =>
 router.post('/user/auth', (req: Request, res: Response) => {
     Auth({ req, res });
 });
+router.post('/user/singup', (req: Request, res: Response) => {
+    singup({ req, res });
+})
+
 router.get('/user', (req: Request, res: Response) => {
     getUser({ req, res });
 });

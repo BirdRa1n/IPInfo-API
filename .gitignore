@@ -139,3 +139,4 @@ src/.DS_Store
 src/data/GeoLite2-City.mmdb
 src/database/database.sqlite
 src/database/GeoLite2-City.mmdb
+changes.txt
