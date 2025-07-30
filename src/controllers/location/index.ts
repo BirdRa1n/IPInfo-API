@@ -5,18 +5,29 @@ import RequestLog from '../../database/models/request_log';
 interface AuthenticatedRequest extends Request {
     apiKey?: any;
     user?: any;
-    requestLogId?: number; // Agora o ID do log é passado
+    requestLogId?: number;
 }
 
 const Location = async ({ req, res }: { req: AuthenticatedRequest, res: Response }) => {
-    const ipAddress = req.params.ip;
+    let ipAddress = req.query.ip as string;
     let success = false;
     let errorMessage: string | undefined;
+
+    if (!ipAddress && req.ip) {
+        ipAddress = req.ip;
+
+        if (ipAddress === '::1') {
+            return res.status(400).send({ message: 'Invalid IP address' });
+        }
+    }
 
     try {
         const locationData = await fetchLocationByIp(ipAddress);
         success = true;
-        res.json(locationData);
+        res.json({
+            ip: ipAddress,
+            info: locationData
+        });
     } catch (error: any) {
         console.error('Error retrieving location information:', error);
         errorMessage = error.message || 'Error retrieving location information';

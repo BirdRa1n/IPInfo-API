@@ -12,7 +12,7 @@ import ListAPIKeys from '../controllers/keys/list';
 const router = express.Router();
 
 // Rota de localização protegida por API Key (Bearer Token)
-router.get('/location/:ip', authenticateApiKey, (req: Request, res: Response) => {
+router.get('/location', authenticateApiKey, (req: Request, res: Response) => {
     Location({ req, res });
 });
 
