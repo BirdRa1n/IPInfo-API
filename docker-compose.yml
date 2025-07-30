@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:14-alpine # Imagem oficial do PostgreSQL
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/postgresql/data # Persiste os dados do DB
+    ports:
+      - "5432:5432" # Mapeia a porta do DB para o host (opcional, para acesso externo)
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app # Usaremos um Dockerfile separado para a app
+    restart: always
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db # O nome do serviço do DB no docker-compose
+      DB_PORT: 5432
+      DB_SSL: ${DB_SSL}
+    depends_on:
+      - db # Garante que o DB inicie antes da aplicação
+    volumes:
+      - .:/app # Mapeia o diretório local para o container (útil para nodemon em dev)
+      - /app/node_modules # Exclui node_modules do mapeamento para usar o do container
+
+volumes:
+  db_data:

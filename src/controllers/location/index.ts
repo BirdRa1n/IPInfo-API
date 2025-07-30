@@ -8,8 +8,33 @@ interface AuthenticatedRequest extends Request {
     requestLogId?: number;
 }
 
+function translateLocationInfo(info: any, lang: string): any {
+    const translateField = (field: any) => {
+        if (field?.names && field.names[lang]) {
+            return {
+                ...field,
+                name: field.names[lang],
+                names: undefined // remove o objeto 'names' se não quiser ele completo na resposta
+            };
+        }
+        return field;
+    };
+
+    return {
+        ...info,
+        city: translateField(info.city),
+        continent: translateField(info.continent),
+        country: translateField(info.country),
+        registered_country: translateField(info.registered_country),
+        subdivisions: Array.isArray(info.subdivisions)
+            ? info.subdivisions.map(translateField)
+            : info.subdivisions
+    };
+}
+
 const Location = async ({ req, res }: { req: AuthenticatedRequest, res: Response }) => {
     let ipAddress = req.query.ip as string;
+    const lang = (req.query.lang as string)?.trim() || 'en'; // padrão: inglês
     let success = false;
     let errorMessage: string | undefined;
 
@@ -23,17 +48,17 @@ const Location = async ({ req, res }: { req: AuthenticatedRequest, res: Response
 
     try {
         const locationData = await fetchLocationByIp(ipAddress);
+        const translatedData = translateLocationInfo(locationData, lang);
         success = true;
         res.json({
             ip: ipAddress,
-            info: locationData
+            info: translatedData
         });
     } catch (error: any) {
         console.error('Error retrieving location information:', error);
         errorMessage = error.message || 'Error retrieving location information';
         res.status(500).send({ message: errorMessage });
     } finally {
-        // Atualiza o log de requisição com o resultado final
         if (req.requestLogId) {
             await RequestLog.update(
                 {
@@ -45,7 +70,6 @@ const Location = async ({ req, res }: { req: AuthenticatedRequest, res: Response
                 }
             );
         } else {
-            // Fallback: se por algum motivo o requestLogId não foi anexado (o que não deveria acontecer com o middleware ajustado)
             console.warn('requestLogId not found on request, creating new log entry for final status.');
             if (req.apiKey && req.user) {
                 await RequestLog.create({
@@ -59,6 +83,6 @@ const Location = async ({ req, res }: { req: AuthenticatedRequest, res: Response
             }
         }
     }
-}
+};
 
 export default Location;
